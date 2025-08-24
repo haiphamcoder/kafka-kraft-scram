@@ -1,18 +1,31 @@
 # Kafka KRaft with SCRAM Authentication
 
-A production-ready Docker Compose setup for Apache Kafka using KRaft (Kafka Raft) consensus protocol instead of ZooKeeper, with SASL/SCRAM authentication for enhanced security.
+A development and testing Docker Compose setup for Apache Kafka using KRaft (Kafka Raft) consensus protocol instead of ZooKeeper, with SASL/SCRAM authentication. This setup provides a solid foundation that can be enhanced for production use.
 
 ## 🚀 Overview
 
-This project provides a complete, containerized Kafka cluster setup that eliminates the dependency on ZooKeeper by using KRaft mode. The cluster includes three Kafka brokers with built-in SCRAM authentication, making it suitable for development, testing, and production environments.
+This project provides a complete, containerized Kafka cluster setup that eliminates the dependency on ZooKeeper by using KRaft mode. The cluster includes three Kafka brokers with built-in SCRAM authentication, making it suitable for development, testing, and learning purposes.
+
+**Use Cases:**
+
+- 🧪 **Development environments**
+- 🧪 **Testing and QA**
+- 📚 **Learning Kafka KRaft mode**
+- 🚀 **Foundation for production setup** (with enhancements)
+
+**Not Suitable For:**
+
+- ❌ **Production environments** (without significant modifications)
+- ❌ **High-security requirements**
+- ❌ **Compliance-heavy industries**
 
 **Key Features:**
 
 - **KRaft Mode**: Modern consensus protocol replacing ZooKeeper
-- **SASL/SCRAM Authentication**: Secure client authentication
+- **SASL/SCRAM Authentication**: Basic client authentication
 - **Multi-Broker Cluster**: 3 brokers for high availability
 - **Docker Compose**: Easy deployment and management
-- **Production Ready**: Includes proper security and monitoring
+- **Development Ready**: Includes basic security and monitoring
 
 ## 📋 Prerequisites
 
@@ -425,16 +438,80 @@ docker compose logs -f kafka-broker-2
 docker compose logs -f kafka-broker-3
 ```
 
+## 🚨 Production Readiness
+
+### ⚠️ Current Status: Development/Testing Only
+
+This setup is **NOT production-ready** as-is. It's designed for development, testing, and learning purposes. For production deployment, significant enhancements are required.
+
+### 🔒 What's Missing for Production
+
+**Security:**
+
+- ❌ TLS/SSL encryption (currently plaintext)
+- ❌ External secret management (hardcoded credentials)
+- ❌ Access Control Lists (ACLs)
+- ❌ Network segmentation and firewall rules
+
+**Monitoring & Observability:**
+
+- ❌ Prometheus metrics export
+- ❌ Grafana dashboards
+- ❌ Centralized logging (ELK stack)
+- ❌ Alerting and notification system
+
+**Operational:**
+
+- ❌ Backup and restore procedures
+- ❌ Disaster recovery plan
+- ❌ Resource limits and quotas
+- ❌ Rolling update procedures
+- ❌ Performance tuning
+
+**Compliance:**
+
+- ❌ Audit logging
+- ❌ Data retention policies
+- ❌ Compliance monitoring
+
+### 🎯 Production Enhancement Roadmap
+
+1. **Phase 1: Security Hardening**
+   - Enable TLS/SSL encryption
+   - Implement external secret management
+   - Add ACLs for topic access control
+
+2. **Phase 2: Monitoring & Alerting**
+   - Deploy Prometheus + Grafana
+   - Setup centralized logging
+   - Implement alerting rules
+
+3. **Phase 3: Operational Excellence**
+   - Backup automation
+   - Performance tuning
+   - Disaster recovery procedures
+
 ## 🔒 Security Considerations
+
+### Current Security Status
+
+⚠️ **Important**: This setup is designed for development and testing. For production use, significant security enhancements are required.
+
+**Current Security Features:**
+
+- Basic SASL/SCRAM authentication
+- Hardcoded credentials (not suitable for production)
+- No TLS/SSL encryption
+- No access control lists (ACLs)
 
 ### Authentication Best Practices
 
 1. **Strong Passwords**: Use complex passwords for production
 2. **User Management**: Regularly audit user accounts
-3. **Network Security**: Consider using TLS in production
+3. **Network Security**: Use TLS/SSL encryption in production
 4. **Access Control**: Implement proper ACLs for topic access
 
-### Production Security
+### Production Security Requirements
 
 ```bash
 # Enable TLS encryption
@@ -443,6 +520,9 @@ docker compose logs -f kafka-broker-3
 
 # Use external secret management
 # Mount secrets from Docker secrets or external vaults
+
+# Implement ACLs
+# kafka-acls --bootstrap-server localhost:9093 --add --allow-principal User:username --operation Read --topic topic-name
 ```
 
 ## 🧪 Testing
