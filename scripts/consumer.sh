@@ -77,7 +77,8 @@ if [ -z "$GROUP_NAME" ]; then
         -X security.protocol=SASL_PLAINTEXT \
         -X sasl.mechanism=SCRAM-SHA-512 \
         -X sasl.username="$USERNAME" \
-        -X sasl.password="$PASSWORD"
+        -X sasl.password="$PASSWORD" \
+        -f "Topic: %t, Partition: %p, Offset: %o, Key: %k, Value: %s\n"
 else
     echo -e "${GREEN}🚀 Starting consumer for topic '$TOPIC_NAME' with group '$GROUP_NAME'${NC}"
     echo -e "${YELLOW}💡 Press Ctrl+C to exit${NC}"
@@ -96,7 +97,8 @@ else
         -X security.protocol=SASL_PLAINTEXT \
         -X sasl.mechanism=SCRAM-SHA-512 \
         -X sasl.username="$USERNAME" \
-        -X sasl.password="$PASSWORD"
+        -X sasl.password="$PASSWORD" \
+        -f "Topic: %t, Partition: %p, Offset: %o, Key: %k, Value: %s\n"
 fi
 
 echo -e "${GREEN}✅ Consumer stopped${NC}"
